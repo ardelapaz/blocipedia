@@ -4,8 +4,4 @@ class UserPolicy < ApplicationPolicy
         super(user, wiki)
         @wiki = record
     end
-
-    def update? 
-        user.present?
-    end
 end
