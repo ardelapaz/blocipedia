@@ -1,5 +1,6 @@
 class WikisController < ApplicationController
 before_action :authenticate_user!
+
   def index
     @wikis = Wiki.all
   end
@@ -13,6 +14,7 @@ before_action :authenticate_user!
   end
 
   def edit
+    authorize(current_user)
     @wiki = Wiki.find(params[:id])
   end
 
@@ -30,6 +32,7 @@ before_action :authenticate_user!
   end
 
   def update
+    authorize(current_user)
     @wiki = Wiki.find(params[:id])
     @wiki.assign_attributes(wiki_params)
 
@@ -56,5 +59,12 @@ before_action :authenticate_user!
   def wiki_params
     params.require(:wiki).permit(:title, :body)
   end
+
+  private
+
+def user_not_authorized
+  flash[:alert] = "You are not cool enough to do this - go back from whence you came."
+  redirect_to(some_other_path)
+end
 
 end
