@@ -25,13 +25,8 @@ class ChargesController < ApplicationController
         :currency    => 'usd'
       )
       if charge.paid
-        User.update(
-          [1,2],
-          [
-            {paid: true},
-            {role: "premium"}
-          ]
-        )
+        current_user.premium!
+        current_user.paid = true
         flash[:notice] = "Account upgraded successfully!"
         redirect_to wikis_url
       end

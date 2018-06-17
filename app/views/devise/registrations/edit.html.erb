@@ -38,10 +38,28 @@
   </div>
   <br/>
 <% end %>
-<% if current_user.premium? %>
-<%= link_to "Upgrade my account", new_charge_url, class: "btn btn-success" %> <br />
-<% else %>
-<%= button_to "Cancel premium features", user_demote_path(resource_name), method: :demote, class: "btn btn-danger" %> <br />
-<% end %>
+<% if !current_user.premium? %>
+  <h2>Want to upgrade to Premium?</h2>
+    <%= form_tag charges_path do %>
+      <article>
+        <% if flash[:error].present? %>
+          <div id="error_explanation">
+           <p><%= flash[:error] %></p>
+          </div>
+        <% end %>
+     </article>
+
+     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+             data-description="A month's subscription"
+             data-amount="1500"
+              data-locale="auto"></script>
+             <label class="amount">
+          <span>Amount: $15.00</span>
+        </label>
+    <% end %>
+  <% else %>
+    <%= button_to "Cancel premium features", user_demote_path(resource_name), method: :put, class: "btn btn-danger" %>
+  <% end %>
 <br/>
 <%= button_to "Cancel my account", registration_path(resource_name), class: "btn btn-danger", data: { confirm: "Are you sure?" }, method: :delete %>
