@@ -41,7 +41,7 @@
 <% if current_user.premium? %>
 <%= link_to "Upgrade my account", new_charge_url, class: "btn btn-success" %> <br />
 <% else %>
-<%= link_to "Cancel premium features", demote_path, :method => :demote, class: "btn btn-danger" %> <br />
+<%= button_to "Cancel premium features", user_demote_path(resource_name), method: :demote, class: "btn btn-danger" %> <br />
 <% end %>
 <br/>
 <%= button_to "Cancel my account", registration_path(resource_name), class: "btn btn-danger", data: { confirm: "Are you sure?" }, method: :delete %>
