@@ -10,7 +10,18 @@ users = User.all
   Wiki.create!(
     title:  Faker::RickAndMorty.quote,
     body:   Faker::Markdown.emphasis,
-    user:   users.sample
+    user:   users.sample, 
+    is_private: false
+  )
+end
+wikis = Wiki.all
+
+10.times do
+  Wiki.create!(
+    title:  Faker::RickAndMorty.quote,
+    body:   "Aha! I'm a private wiki!",
+    user:   users.sample, 
+    is_private: true
   )
 end
 wikis = Wiki.all

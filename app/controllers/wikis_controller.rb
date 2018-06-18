@@ -2,6 +2,8 @@ class WikisController < ApplicationController
 before_action :authenticate_user!
 
   def index
+    @wikis = Wiki.all.only_public
+
     @wikis = Wiki.all
   end
 
@@ -57,7 +59,7 @@ before_action :authenticate_user!
   end
 
   def wiki_params
-    params.require(:wiki).permit(:title, :body)
+    params.require(:wiki).permit(:title, :body, :is_private)
   end
 
   private
