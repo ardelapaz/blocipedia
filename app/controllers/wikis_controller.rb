@@ -1,14 +1,12 @@
 class WikisController < ApplicationController
-before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def index
-    @wikis = Wiki.all.only_public
-
-    @wikis = Wiki.all
+    @wikis = policy_scope(Wiki)
   end
 
   def show
-    @wiki = Wiki.find(params[:id])
+    @wiki = policy_scope(Wiki).find(params[:id])
   end
 
   def new
@@ -64,9 +62,9 @@ before_action :authenticate_user!
 
   private
 
-def user_not_authorized
-  flash[:alert] = "You are not cool enough to do this - go back from whence you came."
-  redirect_to(some_other_path)
-end
+  def user_not_authorized
+    flash[:alert] = "You are not cool enough to do this - go back from whence you came."
+    redirect_to(some_other_path)
+  end
 
 end

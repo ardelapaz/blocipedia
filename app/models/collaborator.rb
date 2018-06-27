@@ -1,4 +1,6 @@
 class Collaborator < ApplicationRecord
+    belongs_to :wiki
+    belongs_to :user
     def self.wikis  
         Wiki.pluck(:wiki_id)
     end

@@ -1,2 +1,5 @@
 <h1>Edit Wiki</h1>
  <%= render partial: 'wikis/form' %>
+ <% if current_user.admin? || current_user.premium? %>
+ <%= render partial: 'collaborators/collaborator_form', locals: { wiki: @wiki } %>
+ <% end %>
