@@ -7,6 +7,11 @@ class CollaboratorsController < ApplicationController
         @collaborator_user = User.find_by_email(params[:collaborator])
         @wiki = Wiki.find(params[:wiki_id])
 
+        if (Collaborator.exists?(@collaborator_user.id))
+            flash.now[:alert] = "User is already a collaborator!"
+            redirect_to @wiki
+        end
+
         @collaborator = Collaborator.new(user_id: @collaborator_user.id, wiki_id: @wiki.id)
 
         if @collaborator.save

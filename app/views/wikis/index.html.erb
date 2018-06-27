@@ -4,7 +4,7 @@
     <div class="col-md-8">
         <div class="col-md-16">
         </div>
-            <% policy_scope(@wikis).all.each do |wiki| %>
+            <% (@wikis).each do |wiki| %>
                 <div class="media">
                     <div class="media-body">
                         <h4 class="media-housing"> <%= link_to wiki.title, wiki %></h4>
